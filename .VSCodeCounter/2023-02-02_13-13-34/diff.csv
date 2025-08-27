@@ -1,0 +1,14 @@
+"filename", "language", "Dart", "comment", "blank", "total"
+"c:\src\flutterApps\Project-Mercury\lib\data\event_data.dart", "Dart", 72, 0, 0, 72
+"c:\src\flutterApps\Project-Mercury\lib\data\room_data.dart", "Dart", 94, 50, 0, 144
+"c:\src\flutterApps\Project-Mercury\lib\data\store_data.dart", "Dart", 109, -97, 0, 12
+"c:\src\flutterApps\Project-Mercury\lib\data\transaction_data.dart", "Dart", 10, 1, 1, 12
+"c:\src\flutterApps\Project-Mercury\lib\models\data.dart", "Dart", 48, 0, 4, 52
+"c:\src\flutterApps\Project-Mercury\lib\models\event.dart", "Dart", 5, 0, 1, 6
+"c:\src\flutterApps\Project-Mercury\lib\models\user.dart", "Dart", 0, 0, -1, -1
+"c:\src\flutterApps\Project-Mercury\lib\pages\eventPage\event_card.dart", "Dart", 0, 1, 0, 1
+"c:\src\flutterApps\Project-Mercury\lib\pages\homePage\home_page.dart", "Dart", -1, 0, 0, -1
+"c:\src\flutterApps\Project-Mercury\lib\resources\firestore_methods.dart", "Dart", 62, -3, 1, 60
+"c:\src\flutterApps\Project-Mercury\lib\resources\firestore_path.dart", "Dart", 1, 0, 1, 2
+"c:\src\flutterApps\Project-Mercury\lib\utils\global_variables.dart", "Dart", -7, -1, 1, -7
+"Total", "-", 393, -49, 8, 352
