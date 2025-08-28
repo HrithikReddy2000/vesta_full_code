@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-/* import 'package:projectmercury/models/slot.dart'; */
 import 'package:projectmercury/models/furniture.dart';
 import 'package:projectmercury/models/store_item.dart';
 import 'package:projectmercury/resources/app_state.dart';
@@ -11,6 +10,7 @@ class StoreItemCard extends StatelessWidget {
   final StoreItem storeItem;
   final String roomName;
   final Slot slot;
+
   const StoreItemCard({
     Key? key,
     required this.storeItem,
@@ -31,26 +31,42 @@ class StoreItemCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image.asset(
-              'assets/furniture/${storeItem.item}.png',
-              errorBuilder: (context, _, stacktrace) {
-                return Image.asset(
-                  'assets/furniture/${storeItem.item}_NE.png',
-                  errorBuilder: (context, _, stacktrace) {
-                    return Image.asset(
-                      'assets/furniture/${storeItem.item}_NW.png',
-                      width: 100,
-                      height: 150,
-                    );
-                  },
-                  width: 100,
-                  height: 150,
-                );
-              },
-              width: 100,
-              height: 150,
-            ),
+            furnitureImage(storeItem.item),
+            // // Simplified image loading
+            // Image.asset(
+            //   'assets/furniture/${storeItem.item}.png',
+            //   width: 100,
+            //   height: 150,
+            //   fit: BoxFit.contain,
+            //   errorBuilder: (context, _, __) {
+            //     // Try fallback NE image
+            //     return Image.asset(
+            //       'assets/furniture/${storeItem.item}_NE.png',
+            //       width: 100,
+            //       height: 150,
+            //       fit: BoxFit.contain,
+            //       errorBuilder: (context, _, __) {
+            //         // Try fallback NW image
+            //         return Image.asset(
+            //           'assets/furniture/${storeItem.item}_NW.png',
+            //           width: 100,
+            //           height: 150,
+            //           fit: BoxFit.contain,
+            //           errorBuilder: (context, _, __) {
+            //             // If still fails, show placeholder icon
+            //             return const Icon(
+            //               Icons.image_not_supported,
+            //               size: 64,
+            //               color: Colors.redAccent,
+            //             );
+            //           },
+            //         );
+            //       },
+            //     );
+            //   },
+            // ),
             const SizedBox(width: 12),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,18 +77,14 @@ class StoreItemCard extends StatelessWidget {
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
-                    /* textAlign: TextAlign.center, */
                   ),
                   Text(
                     'Seller: ${storeItem.seller.real}',
                     style: const TextStyle(fontSize: 20),
-                    /* textAlign: TextAlign.center, */
                   ),
                   Text(
                     'Cost: ${formatCurrency.format(storeItem.price)}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                    ),
+                    style: const TextStyle(fontSize: 20),
                   ),
                   const SizedBox(height: 12),
                   ElevatedButton(
@@ -80,20 +92,20 @@ class StoreItemCard extends StatelessWidget {
                       Navigator.pop(context);
                       if (locator.get<AppState>().waitingTransactionAction()) {
                         showConfirmation(
-                            context: context,
-                            static: true,
-                            title: 'Purchase Failed',
-                            text:
-                                'Complete all transactions to make a new purchase.');
+                          context: context,
+                          static: true,
+                          title: 'Purchase Failed',
+                          text:
+                              'Complete all transactions to make a new purchase.',
+                        );
                       } else if (locator.get<AppState>().waitingEventAction()) {
                         showConfirmation(
-                            context: context,
-                            static: true,
-                            title: 'Purchase Failed',
-                            text:
-                                'Complete all events to make a new purchase.');
+                          context: context,
+                          static: true,
+                          title: 'Purchase Failed',
+                          text: 'Complete all events to make a new purchase.',
+                        );
                       } else {
-                        
                         bool result = await showConfirmation(
                               context: context,
                               title: 'Confirmation',
@@ -133,6 +145,39 @@ class StoreItemCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+Widget furnitureImage(String itemName) {
+  const double width = 100;
+  const double height = 150;
+
+  return Image.asset(
+    'assets/furniture/$itemName.png',
+    width: width,
+    height: height,
+    fit: BoxFit.contain,
+    errorBuilder: (context, _, __) => Image.asset(
+      'assets/furniture/${itemName}_NE.png',
+      width: width,
+      height: height,
+      fit: BoxFit.contain,
+      errorBuilder: (context, _, __) => Image.asset(
+        'assets/furniture/${itemName}_NW.png',
+        width: width,
+        height: height,
+        fit: BoxFit.contain,
+        errorBuilder: (context, _, __) => const Icon(
+          Icons.image_not_supported,
+          size: 64,
+          color: Colors.redAccent,
+        ),
+      ),
+    ),
+  );
+}
+
       // child: Container(
       //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       //   decoration: BoxDecoration(
@@ -214,6 +259,4 @@ class StoreItemCard extends StatelessWidget {
       //     ],
       //   ),
       // ),
-    );
-  }
-}
+  

@@ -284,14 +284,27 @@ class StorePage extends StatefulWidget {
 class _StorePageState extends State<StorePage> {
   int selected = -1;
 
+  // /// Helper function to safely get the asset path
+  // String getFurnitureAsset(String itemName, String? direction) {
+  //   const basePath = 'assets/furniture/';
+  //   if (direction == null) return '$basePath$itemName.png';
+
+  //   final validDirections = {"_NE", "_NW", "_SE", "_SW", "_CORNER"};
+  //   String suffix = validDirections.contains(direction) ? direction : "_NE";
+  //   return '$basePath$itemName$suffix.png';
+  // }
   /// Helper function to safely get the asset path
   String getFurnitureAsset(String itemName, String? direction) {
     const basePath = 'assets/furniture/';
-    if (direction == null) return '$basePath$itemName.png';
-
     final validDirections = {"_NE", "_NW", "_SE", "_SW", "_CORNER"};
-    String suffix = validDirections.contains(direction) ? direction : "_NE";
-    return '$basePath$itemName$suffix.png';
+
+    // If direction is valid, check that file exists
+    if (direction != null && validDirections.contains(direction)) {
+      return '$basePath$itemName$direction.png';
+    }
+
+    // Fallback: return item without direction
+    return '$basePath$itemName.png';
   }
 
   @override

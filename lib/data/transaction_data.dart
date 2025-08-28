@@ -13,6 +13,8 @@ List<int> depositAmount = [
   12000,
   8500,
   19000,
+  11000,
+  9000,
 ];
 
 // Transactions
